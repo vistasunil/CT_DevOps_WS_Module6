@@ -64,9 +64,6 @@ EOF
 apt-get update
 
 apt install -y kubeadm=1.23.1-00 kubelet=1.23.1-00 kubectl=1.23.1-00
-
-## use below command to check kubectl and kubeadm versions
-
 ```
 
 **use below command to check kubectl and kubeadm versions**
