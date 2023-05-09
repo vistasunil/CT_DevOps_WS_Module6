@@ -1,0 +1,54 @@
+<div align="center">
+<img src=https://static.wixstatic.com/media/1c706c_a5df0ad56f894928bf858a74ba744b32~mv2.png/v1/fit/w_2500,h_1330,al_c/1c706c_a5df0ad56f894928bf858a74ba744b32~mv2.png width="400" height="200">
+ </div>
+
+# <div align="center"> KUBERNETES ASSIGNMENT </p>
+
+# <div align="center"> DevOps Instructor-led Training </div>
+
+<br />
+
+<br />
+
+<br />
+
+<br />
+
+# $${\color{brown} &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp; Contact us: &emsp;&emsp;&emsp; }$$
+
+<div align="right"> T O A C C E L E R A T E Y O U R C A R E E R G R O W T H </div>
+
+### <div align="right"> For questions and more details: </div>
+
+<div align="right"> <img src=https://w7.pngwing.com/pngs/759/922/png-transparent-telephone-logo-iphone-telephone-call-smartphone-phone-electronics-text-trademark-thumbnail.png width="20" height="20"> +91 98712 72900 </div>
+
+<div align="right"> <img src=https://pbs.twimg.com/profile_images/1450734615946219520/jmBHQRRa_400x400.jpg width="20" height="20"> https://www.thecloudtrain.com </div>
+
+<div align="right"> <img src=https://icons.iconarchive.com/icons/martz90/circle/512/email-icon.png width="20" height="20"> support@thecloudtrain.com </div>
+
+<div align="right"> <img src=https://png.pngtree.com/png-vector/20221018/ourmid/pngtree-whatsapp-icon-png-image_6315990.png width="20" height="20"> +91 98712 72900 </div>
+
+## _Complete below exercises:_
+
+## Exercise 1: Accomplish below task to complete this exercise:
+
+a) Create two Ubuntu 18.04 compute instances, one for Kubernetes master and other for slave
+
+b) Install prerequisites, Kubeadm, Kubectl and Kubelet on both the servers
+
+c) Install Kubernetes on master Ubuntu GCP instance using kubeadm
+
+d) Install calico network plugin to establish network communication between nodes.
+
+e) Check the status of both the nodes using relevant kubectl command.
+
+## Exercise 2: Accomplish below task to complete this exercise:
+
+a) Create a Kubernetes deployment to run a nginx pod with below params:
+  * Name - \<Any\>
+  * Labels – app: nginx
+  * Replicas – 3
+  * Image – nginx: latest
+  * Container Port - 80
+  
+b) Create a Kubernetes Nodeport Service with any name to expose this nginx deployment and access it outside the cluster using _**http://\<Server\_Public\_IP\>:\<Nodeport\_Port\>**_
