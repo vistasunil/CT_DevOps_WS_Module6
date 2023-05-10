@@ -29,7 +29,7 @@
 
 ## Exercise 1: Accomplish below task to complete this exercise:
 
-a) Create two Ubuntu 18.04 compute instances, one for Kubernetes master and other for slave
+a) Create two Ubuntu 22.04 compute instances, one for Kubernetes master and other for slave
 
 b) Install prerequisites, Kubeadm, Kubectl and Kubelet on both the servers
 
