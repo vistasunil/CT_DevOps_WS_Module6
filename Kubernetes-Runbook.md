@@ -39,37 +39,45 @@ b) Install prerequisites, Kubeadm, Kubectl and Kubelet on both the servers
 
 ### _Solution:_
 
-**Run below Steps on Both Master and Slave server**
+## INSTALLING KUBERNETES
 
-i. Run the following commands one by one for installing kubeadm as **root** user
+## _Steps for Both Master and Slave_
+
+_**Note: Install container runtime Containerd on both master and slave following below link:**_
+
+[**Docker official installation page for ubuntu**](https://docs.docker.com/engine/install/ubuntu/)
+
+_**This will install docker and containerd both. Kubernetes is going to use containerd for cluster, as docker is not supported from 1.23 version onwards.**_
+
+### Step 1: Create containerd configuration on both master and slave.
 
 ```
-sudo su – 
+sudo mkdir -p /etc/containerd
+sudo containerd config default | sudo tee /etc/containerd/config.toml
 
-echo '{"exec-opts": ["native.cgroupdriver=systemd"]}' >> /etc/docker/daemon.json
+## Edit /etc/containerd/config.toml and set SystemdCgroup = true
 
-systemctl daemon-reload && systemctl restart docker.service
+sudo vim /etc/containerd/config.toml 
+sudo systemctl restart containerd
+```
 
+### Step 2: Run the following commands for installing kubeadm and other components as root:
+
+```
 apt-get update && apt-get install -y apt-transport-https curl
-
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
 
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+cat << EOF >/etc/apt/sources.list.d/kubernetes.list
 deb https://apt.kubernetes.io/ kubernetes-xenial main
 EOF
 
 apt-get update
+apt install -y kubeadm=1.24.1-00 kubelet=1.24.1-00 kubectl=1.24.1-00
 
-apt install -y kubeadm=1.23.1-00 kubelet=1.23.1-00 kubectl=1.23.1-00
+# use below command to check kubectl and kubeadm versions
+kubectl version --client
+kubeadm version
 ```
-
-**use below command to check kubectl and kubeadm versions**
-
-`kubectl version --client`
-
-`kubeadm version`
-
-![image](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/4ea256da-89e4-4d72-a5e3-6a00dbae2fcc)
 
 c) Install Kubernetes on master Ubuntu GCP instance using kubeadm
 
@@ -77,17 +85,15 @@ c) Install Kubernetes on master Ubuntu GCP instance using kubeadm
 
 **Run below Step on Kubernetes Master only**
 
+## _Steps for Kubernetes Master_
+
 i. Initialize kubeadm using the following command:
 
-```
-sudo su -
+`kubeadm init --apiserver-advertise-address=<control-plane-ip> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU --kubernetes-version 1.24.0`
 
-kubeadm init --apiserver-advertise-address=<ip-address-master> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU
-```
+<img width="938" alt="image" src="https://github.com/vistasunil/CT_DevOps_live_Module9/assets/37858762/f0c83fbc-22f7-479a-89b7-38a580533d02">
 
-![image](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/6725cd8c-d9dd-4b90-b0a2-6069cbfbb586)
-
-![image](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/57d30d9b-0de6-4176-85c7-d5924cc77ad0)
+<img width="727" alt="image" src="https://github.com/vistasunil/CT_DevOps_live_Module9/assets/37858762/28775f4a-b0eb-45d6-8172-4b236d2352a0">
 
 **Run below Steps on Kubernetes Slave only that you want to connect to cluster**
 
@@ -95,26 +101,17 @@ ii. In the output of the previous command, you will get a command, take this com
 
 _ **Note:** If you face any issue with port while connecting slave to master, then open that port on master server by updating the firewall attached to it._
 
-```
-sudo su –
-
-<kubeadm join command from kubeadm init output>
-```
-
-![image](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/9b4b73d1-fb8d-43c6-b409-4b4e859c6e11)
-
-**Run below Steps on Kubernetes Master**
+<img width="739" alt="image" src="https://github.com/vistasunil/CT_DevOps_live_Module9/assets/37858762/fa6b48c6-b25b-408c-a27f-2f01c97c338e">
 
 iii. On the master node, exit to the normal user say ubuntu, and execute the following commands:
 
 ```
-sudo su – ubuntu
 mkdir -p $HOME/.kube
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-![image](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/7cec1d82-937f-4af0-98aa-c85f0b8308d4)
+![image](https://user-images.githubusercontent.com/37858762/236329750-ef0d3114-ce34-4745-8d53-f793f2496bb0.png)
 
 iv. Your cluster is ready. You can see cluster info using below command:
 
