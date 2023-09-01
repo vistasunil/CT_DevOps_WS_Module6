@@ -49,7 +49,7 @@ _**Note: Install container runtime Containerd on both master and slave following
 
 _**This will install docker and containerd both. Kubernetes is going to use containerd for cluster, as docker is not supported from 1.23 version onwards.**_
 
-### Step 1: Create containerd configuration on both master and slave.
+i. Create containerd configuration on both master and slave.
 
 ```
 sudo mkdir -p /etc/containerd
@@ -61,7 +61,7 @@ sudo vim /etc/containerd/config.toml
 sudo systemctl restart containerd
 ```
 
-### Step 2: Run the following commands for installing kubeadm and other components as root:
+ii. Run the following commands for installing kubeadm and other components as root:
 
 ```
 apt-get update && apt-get install -y apt-transport-https curl
