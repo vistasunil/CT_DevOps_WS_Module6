@@ -64,15 +64,11 @@ sudo systemctl restart containerd
 ii. Run the following commands for installing kubeadm and other components as root:
 
 ```
-apt-get update && apt-get install -y apt-transport-https curl
-curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-
-cat << EOF >/etc/apt/sources.list.d/kubernetes.list
-deb https://apt.kubernetes.io/ kubernetes-xenial main
-EOF
-
-apt-get update
-apt install -y kubeadm=1.24.1-00 kubelet=1.24.1-00 kubectl=1.24.1-00
+mkdir -p -m 755 /etc/apt/keyrings
+curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
+sudo apt update
+sudo apt install -y kubeadm=1.28.1-1.1 kubelet=1.28.1-1.1 kubectl=1.28.1-1.1
 
 # use below command to check kubectl and kubeadm versions
 kubectl version --client
@@ -89,7 +85,7 @@ c) Install Kubernetes on master Ubuntu GCP instance using kubeadm
 
 i. Initialize kubeadm using the following command:
 
-`kubeadm init --apiserver-advertise-address=<control-plane-ip> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU --kubernetes-version 1.24.0`
+`kubeadm init --apiserver-advertise-address=<control-plane-ip> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU --kubernetes-version 1.28.1`
 
 <img width="938" alt="image" src="https://github.com/vistasunil/CT_DevOps_live_Module9/assets/37858762/f0c83fbc-22f7-479a-89b7-38a580533d02">
 
