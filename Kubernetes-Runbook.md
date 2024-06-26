@@ -85,7 +85,7 @@ c) Install Kubernetes on master Ubuntu GCP instance using kubeadm
 
 i. Initialize kubeadm using the following command:
 
-`kubeadm init --apiserver-advertise-address=<control-plane-ip> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU --kubernetes-version 1.28.1`
+`kubeadm init --apiserver-advertise-address=<control-plane-internal-ip> --pod-network-cidr=192.168.0.0/16 --ignore-preflight-errors=NumCPU --kubernetes-version 1.28.1`
 
 <img width="938" alt="image" src="https://github.com/vistasunil/CT_DevOps_live_Module9/assets/37858762/f0c83fbc-22f7-479a-89b7-38a580533d02">
 
