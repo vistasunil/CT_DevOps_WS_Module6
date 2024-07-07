@@ -128,7 +128,7 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0
 
 e) Check the status of both the nodes using relevant kubectl command.
 
-**Enable metrics server:
+**Enable metrics server:**
 Create a YAML file `metrics-server.yaml` with below content:
 
 ```
