@@ -168,11 +168,14 @@ rules:
 - apiGroups:
   - ""
   resources:
+  - nodes/metrics
+  verbs:
+  - get
+- apiGroups:
+  - ""
+  resources:
   - pods
   - nodes
-  - nodes/stats
-  - namespaces
-  - configmaps
   verbs:
   - get
   - list
@@ -262,10 +265,12 @@ spec:
       containers:
       - args:
         - --cert-dir=/tmp
-        - --secure-port=4443
-        - --kubelet-preferred-address-types=InternalIP
+        - --secure-port=10250
+        - --kubelet-preferred-address-types=InternalIP,ExternalIP,Hostname
+        - --kubelet-use-node-status-port
+        - --metric-resolution=15s
         - --kubelet-insecure-tls
-        image: k8s.gcr.io/metrics-server/metrics-server:v0.4.1
+        image: registry.k8s.io/metrics-server/metrics-server:v0.7.1
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3
@@ -276,7 +281,7 @@ spec:
           periodSeconds: 10
         name: metrics-server
         ports:
-        - containerPort: 4443
+        - containerPort: 10250
           name: https
           protocol: TCP
         readinessProbe:
@@ -285,11 +290,22 @@ spec:
             path: /readyz
             port: https
             scheme: HTTPS
+          initialDelaySeconds: 20
           periodSeconds: 10
+        resources:
+          requests:
+            cpu: 100m
+            memory: 200Mi
         securityContext:
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
           readOnlyRootFilesystem: true
           runAsNonRoot: true
           runAsUser: 1000
+          seccompProfile:
+            type: RuntimeDefault
         volumeMounts:
         - mountPath: /tmp
           name: tmp-dir
@@ -325,7 +341,13 @@ kubectl apply -f metrics-server.yaml
 ```
 
 You should see below components getting deployed:
-![Screenshot 2024-07-07 at 14 33 43](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/c185fef1-1b80-4a5f-bf0c-992dab002c7a)
+![Screenshot 2024-07-07 at 14 48 05](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/b636e8dd-5d07-4368-ac3b-97c4690a7277)
+
+Verify it by getting nodes metrics:
+
+`kubectl top nodes`
+![Screenshot 2024-07-07 at 14 49 58](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/134df6ef-403f-4cca-934e-fee29b968cfd)
+
 
 
 e) Check the status of both the nodes using relevant kubectl command.
