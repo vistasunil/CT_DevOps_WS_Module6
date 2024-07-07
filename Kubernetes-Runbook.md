@@ -126,8 +126,6 @@ kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0
 kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/custom-resources.yaml
 ```
 
-e) Check the status of both the nodes using relevant kubectl command.
-
 **Enable metrics server:**
 Create a YAML file `metrics-server.yaml` with below content:
 
@@ -329,6 +327,8 @@ kubectl apply -f metrics-server.yaml
 You should see below components getting deployed:
 ![Screenshot 2024-07-07 at 14 33 43](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/c185fef1-1b80-4a5f-bf0c-992dab002c7a)
 
+
+e) Check the status of both the nodes using relevant kubectl command.
 
 ### _Solution:_
 
