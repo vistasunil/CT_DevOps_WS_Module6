@@ -341,14 +341,14 @@ kubectl apply -f metrics-server.yaml
 ```
 
 You should see below components getting deployed:
+
 ![Screenshot 2024-07-07 at 14 48 05](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/b636e8dd-5d07-4368-ac3b-97c4690a7277)
 
 Verify it by getting nodes metrics:
 
 `kubectl top nodes`
+
 ![Screenshot 2024-07-07 at 14 49 58](https://github.com/vistasunil/CT_DevOps_WS_Module6/assets/37858762/134df6ef-403f-4cca-934e-fee29b968cfd)
-
-
 
 e) Check the status of both the nodes using relevant kubectl command.
 
